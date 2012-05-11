@@ -998,14 +998,14 @@ Handlebars.JavaScriptCompiler = function() {};
   JavaScriptCompiler.prototype = {
     // PUBLIC API: You can override these methods in a subclass to provide
     // alternative compiled forms for name lookup and buffering semantics
+
     nameLookup: function(parent, name, type) {
-            if (/^[0-9]+$/.test(name)) {
+      if (/^[0-9]+$/.test(name)) {
         return parent + "[" + name + "]";
       } else if (JavaScriptCompiler.isValidJavaScriptVariableName(name)) {
-            return parent + "." + name;
-            }
-            else {
-                return parent + "['" + name + "']";
+        return parent + "." + name;
+      } else {
+        return parent + "['" + name + "']";
       }
     },
 
@@ -1457,7 +1457,7 @@ Handlebars.JavaScriptCompiler = function() {};
 })(Handlebars.Compiler, Handlebars.JavaScriptCompiler);
 
 Handlebars.precompile = function(string, options) {
-  options = options || {};
+  options = { data: true };
 
   var ast = Handlebars.parse(string);
   var environment = new Handlebars.Compiler().compile(ast, options);
@@ -1465,7 +1465,7 @@ Handlebars.precompile = function(string, options) {
 };
 
 Handlebars.compile = function(string, options) {
-  options = options || {};
+  options = { data: true };
 
   var compiled;
   function compile() {
